@@ -1,2 +1,23 @@
-<router-outlet></router-outlet>
-<p>Hello World</p>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4 ">
+    <a class="navbar-brand" routerLink="/" >FINAN$YS</a> <!--link de acesso a Home, pagina inicial-->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/reports">Relatórios</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/entries">Lançamentos</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/categories">Categorias</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container"> <!--a classe container centraliza o que estiver dentro, no caso, as rotas-->
+    <router-outlet></router-outlet>
+  </div>
