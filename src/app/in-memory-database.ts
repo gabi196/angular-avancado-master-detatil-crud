@@ -15,5 +15,3 @@ export class InMemoryDatabase implements InMemoryDbService{
         return { categories }
     }
 }
-
-}
