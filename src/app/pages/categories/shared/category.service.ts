@@ -24,6 +24,8 @@ export class CategoryService {
     )  
   }
 
+
+
   //metodo que retorna uma categoria especifica dependendo do id que a pessoa passar
   // ele receberá um id e retornará um observeble do tipo Category
   getById(id: number): Observable<Category> {
@@ -70,7 +72,7 @@ export class CategoryService {
 
 
 
-  //PRIVATE MATHODS
+  //PRIVATE ME THODS
 
   //ele recebe um array de objetos que sao as categorias do backend do servidor que ainda precisam ser convertidas para categorias para serem entendidas pelo angula como objetos desse tipo, colocou o Category[] ali pois eh o que ele retorna no final
   private jsonDataToCategories(jsonData: any[]): Category[] {

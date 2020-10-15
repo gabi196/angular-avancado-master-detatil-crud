@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,12 +10,12 @@ import { InMemoryDatabase } from './in-memory-database';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClient,
+    HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDatabase),
   ],
   providers: [],

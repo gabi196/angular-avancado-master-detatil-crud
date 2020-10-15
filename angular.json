@@ -152,6 +152,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "finances"
+    }
+  },
+  "defaultProject": "finances",
+  "cli": {
+    "analytics": "c8b4eeac-979b-4a95-8cae-3eac33462ecf"
+  }
 }
