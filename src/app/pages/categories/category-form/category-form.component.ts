@@ -9,6 +9,7 @@ import { CategoryService } from '../shared/category.service';
 import { switchMap } from 'rxjs/operators';
 
 import toastr from 'toastr';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 
@@ -17,7 +18,7 @@ import toastr from 'toastr';
   templateUrl: './category-form.component.html',
   styleUrls: ['./category-form.component.css']
 })
-export class CategoryFormComponent implements OnInit {
+export class CategoryFormComponent implements OnInit, AfterContentChecked {
 
   currentAction: string;
   categoryForm: FormGroup;
@@ -27,13 +28,66 @@ export class CategoryFormComponent implements OnInit {
   category: Category = new Category();
   
 
-  constructor() { }
+  constructor(
+    private categoryService: CategoryService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private formBuilder: FormBuilder
+  ) { }
 
   ngOnInit(): void {
+    this.setCurrentAction();
+    this.buildCategoryForm();
+    this.loadCategory();
   }
 
-  AfterContentChecked() {
+  ngAfterContentChecked() {
+    this.setPageTitle(); 
 
+  }
+
+  // PRIVATE METHODS
+
+  private setCurrentAction() {
+    if(this.route.snapshot.url[0].path == "new") 
+      this.currentAction = "new"
+    else
+      this.currentAction = "edit"
+
+}
+
+  private buildCategoryForm() {
+     this.categoryForm = this.formBuilder.group({
+       id: [null],
+       name: [null, [Validators.required, Validators.minLength(2)]],
+       description: [null]
+     })
+  }
+
+  private loadCategory() {
+    if (this.currentAction == "edit") {
+      this.route.paramMap.pipe(
+        switchMap(params => this.categoryService.getById(+params.get("id")))
+      )
+      .subscribe(
+        (category) => {
+          this.category = category
+          this.categoryForm.patchValue(category)
+        },
+        (error) => alert('Ocorreu um erro, tente novamente mais tarde')
+      )
+    }
+
+  }
+
+  private setPageTitle() {
+    if(this.currentAction == 'new')
+      this.pageTitle = "Cadastro de Nova Categoria"
+    else {
+      const categoryName = this.category.name || ""
+      this.pageTitle =  "Editando Categoria" +  categoryName;
+    }
+      
   }
 
 }
