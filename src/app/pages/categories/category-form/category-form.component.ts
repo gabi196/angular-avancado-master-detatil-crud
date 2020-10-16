@@ -1,4 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterContentChecked } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { from } from 'rxjs';
+
+import { Category } from '../shared/category.model';
+import { CategoryService } from '../shared/category.service';
+
+import { switchMap } from 'rxjs/operators';
+
+import toastr from 'toastr';
+
+
 
 @Component({
   selector: 'app-category-form',
@@ -7,9 +19,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CategoryFormComponent implements OnInit {
 
+  currentAction: string;
+  categoryForm: FormGroup;
+  pageTitle: string;
+  serverErrorMessages: string[] = null;
+  submittingForm: boolean = false;
+  category: Category = new Category();
+  
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  AfterContentChecked() {
+
   }
 
 }
