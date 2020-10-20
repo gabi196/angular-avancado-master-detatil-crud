@@ -2,14 +2,14 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
         <li class="breadcrumb-item"><a routerLink="/categories">Categorias</a></li>
-        <li class="breadcrumb-item">Formulário de Categoria</li>
+        <li class="breadcrumb-item"> {{ pageTitle }} </li>
     </ol>  
 </nav>
 
 <div class="row mb-4">
     <div class="col-md">
         <h1 class="h2 border-left pl-2">
-            Formulário de categoria {{ currentAction }}
+            {{ pageTitle }}
         </h1>
     </div>
     <div class="col-md">
@@ -20,7 +20,7 @@
 </div>
 
 
-<form [formGroup]="categoryForm" (submit)="createCategory()" >
+<form [formGroup]="categoryForm" (submit)="submitForm()" > 
     
     <div class="card">
         <div class="card-header">
@@ -28,12 +28,13 @@
         </div>
 
         <div class="card-body">
+            
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="name">Nome</label>
                     <input type="text" class="form-control" id="name" formControlName="name">
-
-                    <div class="text-danger">
+ 
+                    <div class="text-danger" *ngIf="categoryForm.get('name').invalid && categoryForm.get('name').touched">
                         <div *ngIf="categoryForm.get('name').errors.required">
                             Dado Obrigatório
                         </div>
@@ -53,7 +54,7 @@
         </div>
 
     </div>
-    <button [disable]="subimittingForm || category.invalid" type="submit" class="btn btn-primary btn-lg float-right mt-3">
+    <button [disabled]="submittingForm || categoryForm.invalid" type="submit" class="btn btn-primary btn-lg float-right mt-3">
         Salvar
     </button>
 </form>

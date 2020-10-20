@@ -51,7 +51,7 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
 
     if(this.currentAction == "new")
       this.createCategory();
-    else // currentAction == "ew"
+    else // currentAction == "edit"
       this.updateCategory();
 
   }
@@ -82,9 +82,9 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
       )
       .subscribe(
         (category) => {
-          this.category = category
-          console.log(category)
-          this.categoryForm.patchValue(category)
+          this.category = category;
+          console.log(category) 
+          this.categoryForm.patchValue(category)//binds loades category data to CategoryForm
         },
         (error) => alert('Ocorreu um erro, tente novamente mais tarde')
       )
@@ -92,7 +92,7 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
 
   }
 
-  private setPageTitle() {
+  private  setPageTitle() {
     if(this.currentAction == 'new')
       this.pageTitle = "Cadastro de Nova Categoria"
     else {
@@ -113,23 +113,30 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
   }
 
   private updateCategory(){
+    const category: Category = Object.assign(new Category(), this.categoryForm.value);
 
+    this.categoryService.update(category)
+    .subscribe(
+      category => this.actionsForSuccess(category),
+      error => this.actionsForError(error)
+    )
   }
 
   private actionsForSuccess(category: Category){
     toastr.success("Solicitação processada com sucesso!");
  
+    //redirect/reload component  
     this.router.navigateByUrl("categories", {skipLocationChange: true}).then(
       () => this.router.navigate(["categories", category.id, "edit"])
     )
   }
 
-  private actionsForError(error){
+  private  actionsForError(error){
     toastr.error("Ocorreu um erro ao processar a sua solicitação!");
 
     this.submittingForm = false;
 
-    if(error.statu === 422)
+    if(error.status === 422)
       this.serverErrorMessages = JSON.parse(error._body).errors;
     else
       this.serverErrorMessages = ["Falha na comunicação com o servidor. Por favor, tente mais tarde."]
