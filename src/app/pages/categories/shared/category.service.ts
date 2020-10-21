@@ -30,7 +30,7 @@ export class CategoryService {
   // ele receberá um id e retornará um observeble do tipo Category
   getById(id: number): Observable<Category> {
     //a url sera uma interpolação contendo o caminho da api barra o id da categoria que eu quero acessar
-    const url =`$(this.apiPath)/${id}`;
+    const url =`${this.apiPath}/${id}`;
 
     return this.http.get(url).pipe(
       catchError(this.handleError),
@@ -49,7 +49,7 @@ export class CategoryService {
 
   //metodo de edicao de um dos campos de uma categoria
   update(category: Category): Observable<Category> {
-    const url = `$(this.apiPath)/${category.id}`;
+    const url = `${this.apiPath}/${category.id}`;
 
     return this.http.put(url, category).pipe(
       catchError(this.handleError),
