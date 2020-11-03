@@ -63,7 +63,7 @@ export class CategoryService {
   //metodo para excluir uma categoria
   // recebe o id da categotia a ser excluida e retorna um Observable do tipo any
   delete(id: number): Observable<any> {
-    const url =`$(this.apiPath)/${id}`;
+    const url =`${this.apiPath}/${id}`;
     return this.http.delete(url).pipe(
       catchError(this.handleError),
       map(() => null)
