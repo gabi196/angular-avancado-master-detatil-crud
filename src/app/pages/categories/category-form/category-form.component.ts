@@ -113,7 +113,7 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
   }
 
   private updateCategory(){
-    const category: Category = Object.assign(new Category(), this.categoryForm.value);
+    const category: Category = Object.assign(new Category(), this.categoryForm.value); //pode-se usar este método quando se for subimetido um json e não um formData
 
     this.categoryService.update(category)
     .subscribe(
@@ -125,7 +125,8 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
   private actionsForSuccess(category: Category){
     toastr.success("Solicitação processada com sucesso!");
  
-    //redirect/reload component  
+    //redirect/reload component  --- Forçando um recarregamento do componente
+    // o skipLocationChange permite que esta navegação para o /categories não apareça no histórico de navegação
     this.router.navigateByUrl("categories", {skipLocationChange: true}).then(
       () => this.router.navigate(["categories", category.id, "edit"])
     )

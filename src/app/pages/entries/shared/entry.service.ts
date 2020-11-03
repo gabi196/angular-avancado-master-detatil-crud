@@ -76,14 +76,21 @@ export class EntryService {
 
   //ele recebe um array de objetos que sao as categorias do backend do servidor que ainda precisam ser convertidas para categorias para serem entendidas pelo angula como objetos desse tipo, colocou o Entry[] ali pois eh o que ele retorna no final
   private jsonDataToEntries(jsonData: any[]): Entry[] {
+
+    // console.log(jsonData[0] as Entry);
+    // console.log(Object.assign(new Entry(), jsonData[0]));
+
     const entries: Entry[] = [];
-    jsonData.forEach(element => entries.push(element as Entry));
+    jsonData.forEach(element => {
+      const entry = Object.assign(new Entry(), element);
+      entries.push(entry)
+    });
     return entries;
   } 
 
   //apenas converte o json recebido em categoria
   private jsonDataToEntry(jsonData: any): Entry {
-    return jsonData as Entry;
+    return Object.assign(new Entry(), jsonData);
   }
 
   // esse metodo recebera um erro do tipo any e retornarah um Observeble do tipo Any

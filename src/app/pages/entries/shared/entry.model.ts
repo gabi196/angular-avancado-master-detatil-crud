@@ -12,7 +12,7 @@ export class Entry {
         public category?:Category,
     ) {}
 
-
+// métodos dinâmicos
     static types = {
         expense: 'Despesa',
         revenue: 'Receita'
